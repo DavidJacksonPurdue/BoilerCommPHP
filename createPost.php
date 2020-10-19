@@ -1,5 +1,6 @@
 <?php
 // get the q parameter from URL
+// Added a comment for the sake of testing the github
 $file = $_POST;
 $data = json_decode(file_get_contents('php://input'), true);
 $q = $_REQUEST["q"];
