@@ -1,7 +1,7 @@
 <?php
 if($_SERVER['REQUEST_METHOD'] =='POST'){
     $image = $_POST['image'];
-    $con=mysqli_connect ('127.0.0.1', "root", 'Alivanzavashin1', 'cs307_testdb_schema');
+    $con=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
     if (!$con) {
         die('Not connected : ' . mysqli_connect_error());
     }

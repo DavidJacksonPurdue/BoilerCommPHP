@@ -10,7 +10,7 @@ $topicId = $inputArray[2];
 $postName = $inputArray[3];
 $postText = $inputArray[4];
 $postDate = $inputArray[5];
-$connection=mysqli_connect ('127.0.0.1', "root", 'Alivanzavashin1', 'cs307_testdb_schema');
+$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }

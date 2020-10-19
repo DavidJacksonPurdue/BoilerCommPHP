@@ -11,7 +11,7 @@ $database = "cs307_testdb_schema";
 
 
 //creating a new connection object using mysqli
-$conn = new mysqli($servername, $username, $password, $database);
+$conn=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
 
 //if there is some error connecting to the database
 //with die we will stop the further execution by displaying a message causing the error

@@ -9,7 +9,7 @@ $firstName = $inputArray[2];
 $lastName = $inputArray[3];
 $email = $inputArray[4];
 $password = $inputArray[5];
-$con = mysqli_connect('127.0.0.1', "root", 'Alivanzavashin1', 'cs307_testdb_schema');
+$con = mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
 if (!$con) {
     die('Not connected : ' . mysqli_connect_error());
 }

@@ -5,12 +5,7 @@ $user_id = $inputArray[0];
 // File written by Nick Rosato
 // CS 307: Delete a user from a mySQL table
 // ID will need to be inputted to this script
-$servername = "127.0.0.1"; // don't use localhost, will generate an error
-$username = "root"; // fill in your database here
-$password = "Alivanzavashin1"; // fill in your password here
-$dbname = "cs307_testdb_schema"; // fill in database name here
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);

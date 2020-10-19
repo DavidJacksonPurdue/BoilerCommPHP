@@ -6,7 +6,7 @@ $topicID = $inputArray[0];
 $topicName = $inputArray[1];
 
 // Connect to the database
-$connection = mysqli_connect('127.0.0.1', "root", 'Alivanzavashin1', 'cs307_testdb_schema');
+$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
 if (!$connection) {
     die('Not connected: ' . mysql_connect_error());
 }
