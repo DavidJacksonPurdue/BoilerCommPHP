@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8ed9b869-c451-470d-a57b-7870a4ab44c1" name="Default Changelist" comment="This is a commit used to test the github" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectId" id="1j6nMMPnEpwlf7hccBIfkhO9Kz0" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="PHPCONFIG" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server" document_root="$PROJECT_DIR$" port="63343">
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8ed9b869-c451-470d-a57b-7870a4ab44c1" name="Default Changelist" comment="" />
+      <created>1603133360288</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1603133360288</updated>
+      <workItem from="1603133361955" duration="584000" />
+    </task>
+    <task id="LOCAL-00001" summary="This is a commit used to test the github">
+      <created>1603133845518</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1603133845518</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="This is a commit used to test the github" />
+    <option name="LAST_COMMIT_MESSAGE" value="This is a commit used to test the github" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="540" y="195" key="#CLI_Interpreters" timestamp="1603133620820">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="540" y="195" key="#CLI_Interpreters/0.0.1920.1080@0.0.1920.1080" timestamp="1603133620820" />
+    <state x="667" y="183" key="#PHP" timestamp="1603133625242">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="667" y="183" key="#PHP/0.0.1920.1080@0.0.1920.1080" timestamp="1603133625242" />
+    <state x="336" y="381" key="#SQL_Dialects" timestamp="1603133912350">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="336" y="381" key="#SQL_Dialects/0.0.1920.1080@0.0.1920.1080" timestamp="1603133912350" />
+    <state x="414" y="195" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603133726012">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="414" y="195" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1080@0.0.1920.1080" timestamp="1603133726012" />
+    <state x="552" y="260" key="Vcs.Push.Dialog.v2" timestamp="1603133848651">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="260" key="Vcs.Push.Dialog.v2/0.0.1920.1080@0.0.1920.1080" timestamp="1603133848651" />
+  </component>
+</project>
