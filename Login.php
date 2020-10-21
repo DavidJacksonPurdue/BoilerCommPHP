@@ -1,11 +1,18 @@
 <?php
+require('dbCredentials.php');
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
 $email = $inputArray[0];
 $password = $inputArray[1];
 
+
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
 // Opens a connection to a MySQL server
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }

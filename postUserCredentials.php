@@ -1,7 +1,14 @@
 <?php
+require('dbCredentials.php');
+
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
 if($_SERVER['REQUEST_METHOD'] =='POST'){
     $image = $_POST['image'];
-    $con=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+    $con=mysqli_connect ($hst, $usr, $pswrd, $db);
     if (!$con) {
         die('Not connected : ' . mysqli_connect_error());
     }

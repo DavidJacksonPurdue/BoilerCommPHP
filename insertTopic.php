@@ -1,12 +1,19 @@
 <?php
+require('dbCredentials.php');
 // Get the q parameter from URL
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
 $topicID = $inputArray[0];
 $topicName = $inputArray[1];
 
+
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
 // Connect to the database
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected: ' . mysql_connect_error());
 }

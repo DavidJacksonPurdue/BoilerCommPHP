@@ -1,4 +1,5 @@
 <?php
+require('dbCredentials.php');
 function parseToXML($htmlStr)
 {
     $xmlStr=str_replace('<','&lt;',$htmlStr);
@@ -10,7 +11,14 @@ function parseToXML($htmlStr)
 }
 $q = $_REQUEST["q"];
 
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
+
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }

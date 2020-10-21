@@ -1,4 +1,10 @@
 <?php
+require('dbCredentials.php');
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
 $file = $_POST;
 $data = json_decode(file_get_contents('php://input'), true);
 $q = $_REQUEST["q"];
@@ -9,7 +15,7 @@ $firstName = $inputArray[2];
 $lastName = $inputArray[3];
 $email = $inputArray[4];
 $password = $inputArray[5];
-$con = mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$con = mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$con) {
     die('Not connected : ' . mysqli_connect_error());
 }

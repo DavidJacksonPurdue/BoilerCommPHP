@@ -1,4 +1,5 @@
 <?php
+require('dbCredentials.php');
 // get the q parameter from URL
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
@@ -10,8 +11,13 @@ $email = $inputArray[4];
 $password = $inputArray[5];
 $profilePic = $inputArray[6];
 
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
 
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }

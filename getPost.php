@@ -3,6 +3,7 @@
 //the username is root by default in case of xampp
 //password is nothing by default
 //and lastly we have the database named android. if your database name is different you have to change it
+require('dbCredentials.php');
 $q = $_REQUEST["q"];
 $servername = "127.0.0.1";
 $username = "root";
@@ -10,8 +11,14 @@ $password = "Alivanzavashin1";
 $database = "cs307_testdb_schema";
 
 
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
+
 //creating a new connection object using mysqli
-$conn=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$conn=mysqli_connect ($hst, $usr, $pswrd, $db);
 
 //if there is some error connecting to the database
 //with die we will stop the further execution by displaying a message causing the error
