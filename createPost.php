@@ -1,4 +1,9 @@
 <?php
+require('dbCredentials.php');
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
 // get the q parameter from URL
 // Added a comment for the sake of testing the github
 $file = $_POST;
@@ -11,7 +16,7 @@ $topicId = $inputArray[2];
 $postName = $inputArray[3];
 $postText = $inputArray[4];
 $postDate = $inputArray[5];
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }
