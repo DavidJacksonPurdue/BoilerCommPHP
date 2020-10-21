@@ -9,7 +9,7 @@ $lastName = $inputArray[3];
 $email = $inputArray[4];
 $password = $inputArray[5];
 $profilePic = $inputArray[6];
-
+//test
 
 // Opens a connection to a MySQL server
 $connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
