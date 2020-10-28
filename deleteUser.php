@@ -1,11 +1,16 @@
 <?php
+require('dbCredentials.php');
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
 $user_id = $inputArray[0];
 // File written by Nick Rosato
 // CS 307: Delete a user from a mySQL table
 // ID will need to be inputted to this script
-$conn=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
+$conn=mysqli_connect ($hst, $usr, $pswrd, $db);;
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
