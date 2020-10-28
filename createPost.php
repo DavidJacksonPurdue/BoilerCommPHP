@@ -16,6 +16,7 @@ $topicId = $inputArray[2];
 $postName = $inputArray[3];
 $postText = $inputArray[4];
 $postDate = $inputArray[5];
+
 $connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());

@@ -20,18 +20,18 @@ if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }
 
-$query = "SELECT MAX(upvote_id) FROM upvote";
+$query = "SELECT MAX(upvoteID) FROM upvote";
 $result = mysqli_query($connection, $query);
 if (!$result) {
     echo "could not get upvote_id";
 }
 $row = @mysqli_fetch_assoc($result);
 
-$upvote_id = $row['MAX(upvote_id)'] + 1;
+$upvote_id = $row['MAX(upvoteID)'] + 1;
 
 
 // Query for inserting a new user
-$query = "INSERT INTO upvote (upvote_id, post_id, user_id)
+$query = "INSERT INTO upvote (upvoteID, postID, userID)
           VALUES 
           ('".$upvote_id."',
            '".$post_id."',
