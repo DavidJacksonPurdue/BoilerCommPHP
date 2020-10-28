@@ -3,10 +3,8 @@
 require('dbCredentials.php');
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
-$upvotes = $inputArray[0];
-$downvotes = $inputArray[1];
-$vote_total = $inputArray[2];
-$post_id = $inputArray[3];
+$post_id = $inputArray[0];
+$user_id = $inputArray[1];
 
 // Created by Nick Rosato
 // CS307: Fall 2020
@@ -22,27 +20,27 @@ if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }
 
-$query = "SELECT $post_id FROM votes";
+$query = "SELECT MAX(downvote_id) FROM downvote";
 $result = mysqli_query($connection, $query);
 if (!$result) {
-    return "could not get maxID";
+    echo "could not get downvote_id";
 }
-
 $row = @mysqli_fetch_assoc($result);
+
+$downvote_id = $row['MAX(downvote_id)'] + 1;
 
 
 // Query for inserting a new user
-$query = "INSERT INTO votes (upvotes, downvotes, vote_total, post_id)
+$query = "INSERT INTO downvote (downvote_id, post_id, user_id)
           VALUES 
-          ('".$upvotes."',
-           '".$downvotes."',
-           '".$vote_total."',
-           '".$post_id."')";
+          ('".$downvote_id."',
+           '".$post_id."',
+           '".$user_id."')";
 
 // Insert the user and recive a response
 if ($connection->query($query) === TRUE) {
-    echo "Updated votes successfully";
+    echo "Updated downvotes successfully";
 } else {
-    echo "Error updating votes " . $connection->error;
+    echo "Error updating downvotes " . $connection->error;
 }
 ?>
