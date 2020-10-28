@@ -3,8 +3,8 @@
 require('dbCredentials.php');
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
-$user_id = $inputArray[0];
-$post_id = $inputArray[1];
+$userId = $inputArray[0];
+$postId = $inputArray[1];
 
 global $hst;
 global $usr;
@@ -17,20 +17,22 @@ if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }
 
-$query = "SELECT $user_id FROM saved";
+$query = "SELECT MAX(savedPostID) FROM saved";
 $result = mysqli_query($connection, $query);
 if (!$result) {
-    return "could not get maxID";
+    echo "could not get maxID";
 }
 
 $row = @mysqli_fetch_assoc($result);
+$savedPostId = $row['MAX(savedPostID)'] + 1;
 
 
 // Query for inserting a new user
-$query = "INSERT INTO saved (user_id, post_id)
+$query = "INSERT INTO saved (savedPostID, userID, postID)
           VALUES 
-          ('".$user_id."',
-           '".$post_id."')";
+          ('".$savedPostId."',
+           '".$userId."',
+           '".$postId."')";
 
 // Insert the user and recive a response
 if ($connection->query($query) === TRUE) {
