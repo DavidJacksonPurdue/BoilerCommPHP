@@ -5,11 +5,6 @@
 //and lastly we have the database named android. if your database name is different you have to change it
 require('dbCredentials.php');
 $q = $_REQUEST["q"];
-$servername = "127.0.0.1";
-$username = "root";
-$password = "Alivanzavashin1";
-$database = "cs307_testdb_schema";
-
 
 global $hst;
 global $usr;
