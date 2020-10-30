@@ -27,7 +27,11 @@ if ($conn->connect_error) {
 $posts = array();
 
 //this is our sql query
-$sql = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, u.upvoteCount from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID join topic t on p.topicID = t.topicID join user us on p.userID = us.userID where p.userID=".$q;
+$sql = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
+left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
+join topic t on p.topicID = t.topicID
+join user us on p.userID = us.userID where p.userID='".$q."'";
 
 //creating an statement with the query
 $stmt = $conn->prepare($sql);
@@ -36,7 +40,7 @@ $stmt = $conn->prepare($sql);
 $stmt->execute();
 
 //binding results for that statment
-$stmt->bind_result($postID, $userID, $topicID, $topicName, $postName, $postText, $postImage, $postDate, $userName, $upvoteCount);
+$stmt->bind_result($postID, $userID, $topicID, $topicName, $postName, $postText, $postImage, $postDate, $userName, $voteTotal);
 
 //looping through all the records
 while($stmt->fetch()){
@@ -52,7 +56,7 @@ while($stmt->fetch()){
         'postImage'=>$postImage,
         'postDate'=>$postDate,
         'userName'=>$userName,
-        'upvoteCount'=>$upvoteCount
+        'voteTotal'=>$voteTotal
     ];
 
     //pushing the array inside the hero array
