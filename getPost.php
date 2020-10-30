@@ -13,60 +13,51 @@ global $db;
 
 
 //creating a new connection object using mysqli
-$conn=mysqli_connect ($hst, $usr, $pswrd, $db);
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 
 //if there is some error connecting to the database
 //with die we will stop the further execution by displaying a message causing the error
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if ($connection->connect_error) {
+    die("Connection failed: " . $connection->connect_error);
 }
 
-//if everything is fine
-
-//creating an array for storing the data
-$posts = array();
-
 //this is our sql query
-$sql = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+$query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join topic t on p.topicID = t.topicID
 join user us on p.userID = us.userID where p.userID='".$q."'";
 
 //creating an statement with the query
-$stmt = $conn->prepare($sql);
+$result = mysqli_query($connection, $query);
+if (!$result) {
+    die('Invalid query: ' . mysqli_error($connection));
+}
+header('Access-Control-Allow-Origin: *');
+header("Content-type: text/xml");
 
-//executing that statment
-$stmt->execute();
-
-//binding results for that statment
-$stmt->bind_result($postID, $userID, $topicID, $topicName, $postName, $postText, $postImage, $postDate, $userName, $voteTotal);
-
-//looping through all the records
-while($stmt->fetch()){
-
-    //pushing fetched data in an array
-    $temp = [
-        'userID'=>$userID,
-        'postID'=>$postID,
-        'topicID'=>$topicID,
-        'topicName'=>$topicName,
-        'postName'=>$postName,
-        'postText'=>$postText,
-        'postImage'=>$postImage,
-        'postDate'=>$postDate,
-        'userName'=>$userName,
-        'voteTotal'=>$voteTotal
-    ];
-
-    //pushing the array inside the hero array
-    array_push($posts, $temp);
+// Start XML file, echo parent node
+echo "<?xml version='1.0' ?>";
+echo '<posts>';
+$ind=0;
+// Iterate through the rows, printing XML nodes for each
+while ($row = @mysqli_fetch_assoc($result)){
+    // Add to XML document node
+    echo '<post ';
+    echo 'postID="' . $row['postID'] . '" ';
+    echo 'userID="' . $row['userID'] . '" ';
+    echo 'topicID="' . $row['topicID'] . '" ';
+    echo 'topicName="' . $row['topicName'] . '" ';
+    echo 'postName="' . $row['postName'] . '" ';
+    echo 'postText="' . $row['postText'] . '" ';
+    echo 'postDate="' . $row['postDate'] . '" ';
+    echo 'userName="' . $row['userName'] . '" ';
+    echo 'voteTotal="' . $row['voteTotal'] . '" ';
+    echo 'postImage="' . $row['postImage'] . '" ';
+    echo '/>';
+    $ind = $ind + 1;
 }
 
-//displaying the data in json format
-$array_final = json_encode($posts, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-
-echo $array_final;
+// End XML file
+echo '</posts>';
+$connection->close();
