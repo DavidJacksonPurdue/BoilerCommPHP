@@ -14,41 +14,43 @@ if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
 
-$posts = array();
-
 // create an array for storing data
-$sql = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, ".
-"p.postDate from post p join topic t on p.topicID = t.topicID where p.topicID=".$q;
+$query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
+left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
+join user us on p.userID = us.userID
+join topic t on p.topicID = t.topicID where p.topicID = '".$q."'";
 
-// create a statement with the query
-$stmt = $conn->prepare($sql);
-// execute the query
-$stmt->execute();
-// bind the results for that statement
-$stmt->bind_result($userID, $postID, $topicID, $topicName, $postName, $postText, $postImage, $postDate);
+//creating an statement with the query
+$result = mysqli_query($conn, $query);
+if (!$result) {
+    die('Invalid query: ' . mysqli_error($connection));
+}
+header('Access-Control-Allow-Origin: *');
+header("Content-type: text/xml");
 
-// loop through all the records
-while ($stmt->fetch()) {
-	// pushing fetched data in an array
-    $temp = [
-        'userID'=>$userID,
-        'postID'=>$postID,
-        'topicID'=>$topicID,
-        'topicName'=>$topicName,
-        'postName'=>$postName,
-        'postText'=>$postText,
-        'postImage'=>$postImage,
-        'postDate'=>$postDate
-    ];
-	//pushing the array inside the hero array
-    array_push($posts, $temp);
+// Start XML file, echo parent node
+echo "<?xml version='1.0' ?>";
+echo '<posts>';
+$ind=0;
+// Iterate through the rows, printing XML nodes for each
+while ($row = @mysqli_fetch_assoc($result)){
+    // Add to XML document node
+    echo '<post ';
+    echo 'postID="' . $row['postID'] . '" ';
+    echo 'userID="' . $row['userID'] . '" ';
+    echo 'topicID="' . $row['topicID'] . '" ';
+    echo 'topicName="' . $row['topicName'] . '" ';
+    echo 'postName="' . $row['postName'] . '" ';
+    echo 'postText="' . $row['postText'] . '" ';
+    echo 'postDate="' . $row['postDate'] . '" ';
+    echo 'userName="' . $row['userName'] . '" ';
+    echo 'voteTotal="' . $row['voteTotal'] . '" ';
+    echo 'postImage="' . $row['postImage'] . '" ';
+    echo '/>';
+    $ind = $ind + 1;
 }
 
-//displaying the data in json format
-$array_final = json_encode($posts, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
-
-header('Access-Control-Allow-Origin: *');
-header('Content-Type: application/json');
-
-echo $array_final;
-?>
+// End XML file
+echo '</posts>';
+$conn->close();
