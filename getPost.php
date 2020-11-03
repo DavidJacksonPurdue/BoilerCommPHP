@@ -26,7 +26,7 @@ $query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postT
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join topic t on p.topicID = t.topicID
-join user us on p.userID = us.userID where p.userID='".$q."'";
+join user us on p.userID = us.userID where p.userID='".$q."' order by p.postDate DESC";
 
 //creating an statement with the query
 $result = mysqli_query($connection, $query);
