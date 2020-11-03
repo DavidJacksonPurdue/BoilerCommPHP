@@ -24,7 +24,7 @@ join topic t on p.topicID = t.topicID where p.topicID = '".$q."'";
 //creating an statement with the query
 $result = mysqli_query($conn, $query);
 if (!$result) {
-    die('Invalid query: ' . mysqli_error($connection));
+    die('Invalid query: ' . mysqli_error($conn));
 }
 header('Access-Control-Allow-Origin: *');
 header("Content-type: text/xml");
