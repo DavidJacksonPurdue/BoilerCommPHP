@@ -69,7 +69,6 @@ while($stmt->fetch()){
 }
 
 //displaying the data in json format
-$array_final = json_encode($posts, JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
