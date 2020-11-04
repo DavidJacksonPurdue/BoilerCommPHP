@@ -32,7 +32,7 @@ $query = "SELECT c.*, p.postName,u.userName, t.topicName
 FROM (comment c)
 LEFT JOIN user u ON c.userID = u.userID LEFT JOIN POST p ON c.postID = p.postID LEFT JOIN Topic T ON p.topicID = t.topicID
 WHERE c.userID = '".$q."'
-ORDER BY c.dateSubmitted ASC";
+ORDER BY c.dateSubmitted DESC";
 
 $result = mysqli_query($connection, $query);
 if (!$result) {
