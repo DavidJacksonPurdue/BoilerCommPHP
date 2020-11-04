@@ -5,7 +5,9 @@
 //and lastly we have the database named android. if your database name is different you have to change it
 require('dbCredentials.php');
 $q = $_REQUEST["q"];
-
+$inputArray = explode("_", $q);
+$userID = $inputArray[0];
+$postID = $inputArray[1];
 global $hst;
 global $usr;
 global $pswrd;
@@ -22,11 +24,11 @@ if ($connection->connect_error) {
 }
 
 //this is our sql query
-$query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+$query = "select temp.*, s.savedPostID FROM ((select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join topic t on p.topicID = t.topicID
-join user us on p.userID = us.userID where p.postID='".$q."'";
+join user us on p.userID = us.userID where p.postID='".$postID."') as temp left Join Saved s on temp.postID = s.postID) where s.userID = '".$userID."'";
 
 //creating an statement with the query
 $result = mysqli_query($connection, $query);
@@ -54,6 +56,7 @@ while ($row = @mysqli_fetch_assoc($result)){
     echo 'userName="' . $row['userName'] . '" ';
     echo 'voteTotal="' . $row['voteTotal'] . '" ';
     echo 'postImage="' . $row['postImage'] . '" ';
+    echo 'savedPostID="' . $row['savedPostID'] . '" ';
     echo '/>';
     $ind = $ind + 1;
 }
