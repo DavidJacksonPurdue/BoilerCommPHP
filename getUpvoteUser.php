@@ -21,12 +21,11 @@ if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
 
-//this is our sql query
-$query = "select distinct p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+$query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join topic t on p.topicID = t.topicID
-join user us on p.userID = us.userID where p.userID in (SELECT userID from following where followerID = '".$q."') or p.topicID in (SELECT topicID from topic_following where userID = '".$q."') or p.userID = '".$q."' order by postDate DESC;";
+join user us on p.userID = us.userID where p.userID='".$q."' order by p.postDate DESC";
 
 //creating an statement with the query
 $result = mysqli_query($connection, $query);
@@ -61,3 +60,4 @@ while ($row = @mysqli_fetch_assoc($result)){
 // End XML file
 echo '</posts>';
 $connection->close();
+
