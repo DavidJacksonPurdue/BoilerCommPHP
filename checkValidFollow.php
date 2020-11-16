@@ -31,16 +31,27 @@ $query = "select * from following where userID= '".$user."' and followerID= '".$
 $result = mysqli_query($connection, $query);
 
 if (!$result) {
+    echo "FAIL";
     die('Invalid query: ' . mysqli_error($connection));
 }
 
 $exists = mysqli_num_rows($result);
 
 if ($exists >= 1) {
+    $query = "delete from following where '".$user."' = userID and '".$follow."' = followerID";
     echo "TRUE";
 }
 else {
+    $query = "insert into following (userID, followerID) VALUES 
+    ('".$user."', '".$follow."')";
     echo "FALSE";
+}
+
+$result = mysqli_query($connection, $query);
+
+if (!$result) {
+    echo "FAIL";
+    die('Invalid query: ' . mysqli_error($connection));
 }
 
 $connection->close();
