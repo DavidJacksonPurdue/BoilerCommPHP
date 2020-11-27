@@ -1,9 +1,14 @@
 <?php
-$userID = 1;
-$connection=mysqli_connect ('127.0.0.1', "newuser", '', 'cs307');
-if (!$connection) {
-    die('Not connected : ' . mysqli_connect_error());
-}
+require('dbCredentials.php');
+$userID = $_REQUEST["q"];
+
+global $hst;
+global $usr;
+global $pswrd;
+global $db;
+
+//creating a new connection object using mysqli
+$connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 $query= "SELECT u.userID,d.dm_id,u.userName
  FROM dm d, user u
  WHERE CASE 
@@ -46,8 +51,8 @@ ORDER BY dm_message_id DESC LIMIT 1";
     $body=$crow['body'];
     $time=$crow['time'];
 //HTML Output.
-    echo '<dmz ';
-    echo 'user_id="' .$user_id. '" ';
+    echo '<dm ';
+    echo 'dm_id="' .$dm_id. '" ';
     echo 'username="' .$username. '" ';
     echo 'body="' .$body. '" ';
     echo 'time="' .$time. '" ';
