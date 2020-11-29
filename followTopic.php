@@ -17,28 +17,33 @@ $connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
     die('Not connected : ' . mysqli_connect_error());
 }
-$query1 = "Select topicID from topic_following where userID = '".$userID."'";
+$query1 = "Select * from topic_following where userID = '".$userID."' and '".$topicID."' = topicID";
 
 $result1 = mysqli_query($connection, $query1);
-$resultArr = array();
+
 if (!$result1) {
+    echo "FAIL";
     die('Invalid query: ' . mysqli_error($connection));
 }
 
-while ($row1 = @mysqli_fetch_assoc($result1)) {
-    array_push($resultArr, $row1['topicID']);
+$exists = mysqli_num_rows($result1);
+
+if ($exists >= 1) {
+    $query2 = "delete from topic_following where '".$userID."' = userID and '".$topicID."' = topicID";
+    echo "TRUE";
 }
 
-if(in_array($topicID, $resultArr)){
-    echo "Error inserting user: " . $connection->error;
-}else{
-    $query2 = "INSERT INTO topic_following (userID, topicID)
-          VALUES 
-          ('".$userID."',
-           '".$topicID."')";
-    if ($connection->query($query2) === TRUE) {
-        echo "Inserted user succesfully";
-    } else {
-        echo "Error inserting user: " . $connection->error;
-    }
+else {
+    $query2 = "insert into topic_following (userID, topicID) VALUES 
+    ('".$userID."', '".$topicID."')";
+    echo "FALSE";
 }
+
+$result2 = mysqli_query($connection, $query2);
+
+if (!$result2) {
+    echo "FAIL";
+    die('Invalid query: ' . mysqli_error($connection));
+}
+
+$connection->close();
