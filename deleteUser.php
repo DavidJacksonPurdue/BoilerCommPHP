@@ -7,7 +7,7 @@ global $db;
 $q = $_REQUEST["q"];
 $inputArray = explode("_", $q);
 $user_id = $inputArray[0];
-// File written by Nick Rosato
+// File written by Nick Rosato and Eli Heminger
 // CS 307: Delete a user from a mySQL table
 // ID will need to be inputted to this script
 $conn=mysqli_connect ($hst, $usr, $pswrd, $db);;
@@ -26,11 +26,17 @@ if ($conn->query($sql) === TRUE) {
 }
 mysqli_select_db($conn, "cs307_testdb_schema");
 $query ="SET SQL_SAFE_UPDATES = 0;
-UPDATE post 
-SET
-    userID = -1
-WHERE
-    userID = '".$user_id."';";
+UPDATE post SET userID = -1 WHERE userID = '".$user_id."';
+UPDATE comment SET userID = -1 WHERE userID = '".$user_id."';
+UPDATE upvote SET userID = -1 WHERE userID = '".$user_id."';
+UPDATE liked SET userID = -1 WHERE userID = '".$user_id."';
+UPDATE saved SET userID = -1 WHERE userID = '".$user_id."';
+DELETE FROM following WHERE userID = '".$user_id."';
+DELETE FROM following WHERE followerID = '".$user_id."';
+DELETE FROM topic_following WHERE userID = '".$user_id."';";
+
+
+
 $conn ->multi_query($query);
 printf("Error message: %s\n", $conn->error);
 // close connection
