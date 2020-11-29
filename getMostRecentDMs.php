@@ -9,7 +9,7 @@ global $db;
 
 //creating a new connection object using mysqli
 $connection=mysqli_connect ($hst, $usr, $pswrd, $db);
-$query= "SELECT u.userID,d.dm_id,u.userName
+$query= "SELECT u.userID, d.user_id_one, d.user_id_two, d.dm_id,u.userName
  FROM dm d, user u
  WHERE CASE 
  WHEN d.user_id_one = '".$userID."'
@@ -37,6 +37,8 @@ while($row = @mysqli_fetch_assoc($result))
     $dm_id=$row['dm_id'];
     $user_id=$row['userID'];
     $username=$row['userName'];
+    $uid1=$row['user_id_one'];
+    $uid2=$row['user_id_two'];
     $cquery= "SELECT dm_message_id,time,body
 FROM dm_messages
 WHERE dm_id_fk='".$dm_id."'
@@ -53,6 +55,9 @@ ORDER BY dm_message_id DESC LIMIT 1";
 //HTML Output.
     echo '<dm ';
     echo 'dm_id="' .$dm_id. '" ';
+    echo 'user_id="' .$user_id. '" ';
+    echo 'uid1="' .$uid1. '" ';
+    echo 'uid2="' .$uid2. '" ';
     echo 'username="' .$username. '" ';
     echo 'body="' .$body. '" ';
     echo 'time="' .$time. '" ';
