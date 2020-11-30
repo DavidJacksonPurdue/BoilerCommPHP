@@ -4,7 +4,7 @@
 //password is nothing by default
 //and lastly we have the database named android. if your database name is different you have to change it
 require('dbCredentials.php');
-$q = $_REQUEST["q"];
+$dm_id_fk = $_REQUEST["q"];
 
 global $hst;
 global $usr;
@@ -20,44 +20,38 @@ $connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
+$query = "select d.user_id, u.username, d.body, d.time from dm_messages d join user u on d.user_id = u.userID where dm_id_fk = '".$dm_id_fk."' order by time asc";
 
-$query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
-from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
-left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
-join topic t on p.topicID = t.topicID
-join user us on p.userID = us.userID where p.postID in (SELECT postID FROM upvote where  userID='".$q."')  order by p.postDate DESC";
+//this is our sql query
+
 
 //creating an statement with the query
 $result = mysqli_query($connection, $query);
+
 if (!$result) {
     die('Invalid query: ' . mysqli_error($connection));
 }
+
+
 header('Access-Control-Allow-Origin: *');
 header("Content-type: text/xml");
 
 // Start XML file, echo parent node
 echo "<?xml version='1.0' ?>";
-echo '<posts>';
+echo '<dms>';
 $ind=0;
 // Iterate through the rows, printing XML nodes for each
 while ($row = @mysqli_fetch_assoc($result)){
     // Add to XML document node
-    echo '<post ';
-    echo 'postID="' . $row['postID'] . '" ';
-    echo 'userID="' . $row['userID'] . '" ';
-    echo 'topicID="' . $row['topicID'] . '" ';
-    echo 'topicName="' . $row['topicName'] . '" ';
-    echo 'postName="' . $row['postName'] . '" ';
-    echo 'postText="' . $row['postText'] . '" ';
-    echo 'postDate="' . $row['postDate'] . '" ';
-    echo 'userName="' . $row['userName'] . '" ';
-    echo 'voteTotal="' . $row['voteTotal'] . '" ';
-    echo 'postImage="' . $row['postImage'] . '" ';
+    echo '<dm_message ';
+    echo 'userID="' . $row['user_id'] . '" ';
+    echo 'username="' . $row['username'] . '" ';
+    echo 'body="' . $row['body'] . '" ';
+    echo 'time="' . $row['time'] . '" ';
     echo '/>';
     $ind = $ind + 1;
 }
 
 // End XML file
-echo '</posts>';
+echo '</dms>';
 $connection->close();
-
