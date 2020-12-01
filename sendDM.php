@@ -54,9 +54,17 @@ $query4 = "INSERT INTO dm_messages (dm_message_id, body, user_id, time, dm_id_fk
            '".$time."',
            '".$dmid."')";
 
+
+header('Access-Control-Allow-Origin: *');
+header("Content-type: text/xml");
+echo "<?xml version='1.0' ?>";
+echo '<dmid>';
+echo '<dm ';
 // Insert the user and recive a response
 if ($connection->query($query4) === TRUE) {
-    echo $query4;
+    echo 'id="' . $dmid . '" ';
+    echo '/>';
+    echo '</dmid>';
 } else {
     echo "Error inserting comment: " . $connection->error;
 }
