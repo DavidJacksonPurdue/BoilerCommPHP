@@ -5,6 +5,9 @@ global $hst;
 global $usr;
 global $pswrd;
 global $db;
+$inputArray = explode("_", $q);
+$topicID = $inputArray[0];
+$userID = $inputArray[1];
 // File written by Elijah Heminger
 // CS 307: Will retrive posts associated with a topic ID
 // A topic Id will be needed as a parameter
@@ -19,7 +22,7 @@ $query = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postT
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join user us on p.userID = us.userID
-join topic t on p.topicID = t.topicID where p.topicID = '".$q."'"." order by p.postDate DESC";
+join topic t on p.topicID = t.topicID where p.topicID = '".$topicID."'"." and not p.userID in (SELECT blockedID from blocking where userID = '".$userID."') order by p.postDate DESC";
 ;
 
 //creating an statement with the query
