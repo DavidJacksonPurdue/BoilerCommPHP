@@ -33,7 +33,10 @@ UPDATE liked SET userID = -1 WHERE userID = '".$user_id."';
 UPDATE saved SET userID = -1 WHERE userID = '".$user_id."';
 DELETE FROM following WHERE userID = '".$user_id."';
 DELETE FROM following WHERE followerID = '".$user_id."';
-DELETE FROM topic_following WHERE userID = '".$user_id."';";
+DELETE FROM topic_following WHERE userID = '".$user_id."';
+DELETE FROM blocking WHERE userID = '".$user_id."';
+DELETE FROM blocking WHERE blockedID = '".$user_id."';";
+
 
 
 
