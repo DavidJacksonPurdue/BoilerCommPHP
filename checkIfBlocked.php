@@ -43,7 +43,7 @@ if($followingCase == "0") {
         echo '</blocked>';
     }
 }else{
-    $query = "SELECT followerID FROM following WHERE userID = '" . $uid . "'";
+    $query = "SELECT userID FROM following WHERE followerID = '" . $uid . "'";
     $result = mysqli_query($connection, $query);
     if (!$result) {
         die('Invalid query: ' . mysqli_error($connection));
@@ -55,7 +55,7 @@ if($followingCase == "0") {
     echo '<block ';
     $ran = 0;
     while ($row = @mysqli_fetch_assoc($result)) {
-        $curFollowerID = $row['followerID'];
+        $curFollowerID = $row['userID'];
         if ($curFollowerID == $otherUID) {
             echo 'is_blocked="' . "false" . '" ';
             echo '/>';
