@@ -2,7 +2,7 @@
 require('dbCredentials.php');
 // Get the q parameter from URL
 $q = $_REQUEST["q"];
-$inputArray = explode("_", $q);
+$inputArray = explode("\x9D", $q);
 $topicID = $inputArray[0];
 $topicName = $inputArray[1];
 
