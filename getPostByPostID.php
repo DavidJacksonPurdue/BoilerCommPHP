@@ -25,7 +25,7 @@ if ($connection->connect_error) {
 $query1 = "select postID from saved where userID = '".$userID."'";
 
 //this is our sql query
-$query2 = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
+$query2 = "select p.postID, p.userID, p.topicID, t.topicName, p.postName, p.postText, p.postLink, p.postImage, p.postDate, us.userName, (ifnull(u.upvoteCount,0) - ifnull(d.downvoteCount, 0)) as voteTotal
 from post p left JOIN (SELECT postID, count(postID) as upvoteCount FROM upvote GROUP BY postID) u ON p.postID = u.postID
 left JOIN (SELECT postID, count(postID) as downvoteCount FROM downvote GROUP BY postID) d ON p.postID = d.postID
 join topic t on p.topicID = t.topicID
@@ -67,6 +67,7 @@ while ($row = @mysqli_fetch_assoc($result2)){
     echo 'topicName="' . $row['topicName'] . '" ';
     echo 'postName="' . $row['postName'] . '" ';
     echo 'postText="' . $row['postText'] . '" ';
+    echo 'postLink="' . $row['postLink'] . '" ';
     echo 'postDate="' . $row['postDate'] . '" ';
     echo 'userName="' . $row['userName'] . '" ';
     echo 'voteTotal="' . $row['voteTotal'] . '" ';
