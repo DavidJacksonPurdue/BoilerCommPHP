@@ -16,7 +16,8 @@ $postId = $inputArray[1];
 $topicId = $inputArray[2];
 $postName = $inputArray[3];
 $postText = $inputArray[4];
-$postDate = $inputArray[5];
+$postLink = $inputArray[5];
+$postDate = $inputArray[6];
 
 $connection=mysqli_connect ($hst, $usr, $pswrd, $db);
 if (!$connection) {
@@ -34,13 +35,13 @@ $postId = $row['MAX(postID)'] + 1;
 
 $postImage = $data['imageString'];
 if(strpos($postImage, '<<>>') === false){
-    $query = "INSERT INTO post (userID, postID, topicID, postName, postText, postImage, postDate)
+    $query = "INSERT INTO post (userID, postID, topicID, postName, postText, postLink, postImage, postDate)
 VALUES 
-('".$userId."', '".$postId."', '".$topicId."', '".$postName."', '".$postText."', '".$postImage."', '".$postDate."')";
+('".$userId."', '".$postId."', '".$topicId."', '".$postName."', '".$postText."', '".$postLink."', '".$postImage."', '".$postDate."')";
 }else{
-    $query = "INSERT INTO post (userID, postID, topicID, postName, postText, postImage, postDate)
+    $query = "INSERT INTO post (userID, postID, topicID, postName, postText, postLink, postImage, postDate)
 VALUES 
-('".$userId."', '".$postId."', '".$topicId."', '".$postName."', '".$postText."', 'null', '".$postDate."')";
+('".$userId."', '".$postId."', '".$topicId."', '".$postName."', '".$postText."', '".$postLink."', 'null', '".$postDate."')";
 }
 $result = mysqli_query($connection, $query);
 if (!$result) {
